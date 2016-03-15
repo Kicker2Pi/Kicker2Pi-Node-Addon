@@ -1,25 +1,52 @@
 #include <wiringPi.h>
 
 #include <stdio.h>
+
 #include <iostream>
 
-using namespace std;
+using std::cout;
+using std::endl;
+using std::flush;
 
-int main() {
+unsigned LEFT = 17;
+unsigned RIGHT = 27;
+unsigned BUTTON = 22;
 
-  // Starte die WiringPi-Api (wichtig)
-  if (wiringPiSetup() == -1)
-    return 1;
-
-  // Schalte GPIO 17 (=WiringPi Pin 0) auf Ausgang
-  pinMode(0, INPUT);
-
-  // Dauerschleife
-  while(1) {
-    // LED an
-    if (digitalRead(0)==1) {
-       cout << "Yey" << endl;      
-    }
-    delay(100);
-  }
+void interrupt_left(void)
+{
+    cout << "Interrupt: left rising to high!" << endl;
 }
+void interrupt_right(void)
+{
+    cout << "Interrupt: right rising to high!" << endl;
+}
+void interrupt_button(void)
+{
+    cout << "Interrupt: button rising to high!" << endl;
+}
+
+
+int main ()
+{
+  if (wiringPiSetupGpio() == -1)
+  {
+    return 1;
+  }
+
+  pinMode(LEFT, INPUT);
+  wiringPiISR(LEFT, INT_EDGE_FALLING, interrupt_left);
+
+  pinMode(RIGHT, INPUT);
+  wiringPiISR(RIGHT, INT_EDGE_FALLING, interrupt_right);
+
+  pinMode(BUTTON, INPUT);
+  wiringPiISR(BUTTON, INT_EDGE_FALLING, interrupt_button);
+
+
+  cout << "Waiting" << endl;
+  while(true)
+  {
+  }
+
+}
+
