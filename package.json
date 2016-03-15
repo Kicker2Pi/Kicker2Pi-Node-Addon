@@ -1,0 +1,15 @@
+{
+  "name": "kicker2pi",
+  "version": "0.0.1",
+  "description": "Kicker2Pi Connector",
+  "main": "kicker2pi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Holmes & Watson",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "nan": "^2.2.0"
+  },
+  "gypfile": true
+}
