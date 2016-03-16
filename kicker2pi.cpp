@@ -8,9 +8,9 @@ using std::cout;
 using std::endl;
 using std::flush;
 
-unsigned LEFT = 17;
-unsigned RIGHT = 27;
-unsigned BUTTON = 22;
+#define LEFT 17;
+#define RIGHT 27;
+#define BUTTON 22;
 
 void interrupt_left(void)
 {
@@ -34,12 +34,15 @@ int main ()
   }
 
   pinMode(LEFT, INPUT);
+  pullUpDnControl(LEFT, PUD_DOWN);
   wiringPiISR(LEFT, INT_EDGE_FALLING, interrupt_left);
 
   pinMode(RIGHT, INPUT);
+  pullUpDnControl(RIGHT, PUD_DOWN);
   wiringPiISR(RIGHT, INT_EDGE_FALLING, interrupt_right);
 
   pinMode(BUTTON, INPUT);
+  pullUpDnControl(BUTTON, PUD_DOWN);
   wiringPiISR(BUTTON, INT_EDGE_FALLING, interrupt_button);
 
 
